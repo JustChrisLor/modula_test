@@ -1,0 +1,47 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center mt-4">
+            <h1>Détails</h1>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center mb-2"><a class="btn btn-primary" href="{{ path('admin_liste_message')}}">Retour à la liste</a></div>
+    </div>
+
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <table class="table table-dark">
+                    <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prenom</th>
+                        <th scope="col">Adresse mail</th>
+                        <th scope="col">Date et Heure</th>
+                        <th scope="col">Message</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ contact.lastname }}</td>
+                            <td>{{ contact.firstname }}</td>
+                            <td>{{ contact.email }}</td>
+                            <td>{{ contact.createdAt|date("m/d/Y H:i") }}</td>
+                            <td>{{ contact.text }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
