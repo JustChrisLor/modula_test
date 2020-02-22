@@ -5,6 +5,9 @@
 {% endblock %}
 
 {% block main %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('logout') }}">Se déconnecter</a>
+    {% endif %}
     <h1>Bonjour petit bib</h1>
     <h6>Débrouille toi pour trouver les routes</h6>
     <p>petite aide: php bin/console debug:route</p>

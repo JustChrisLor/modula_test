@@ -8,6 +8,9 @@
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb40 text-center mt-4">
             <h1>Liste des Messages</h1>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('logout') }}">Se déconnecter</a>
+            {% endif %}
         </div>
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center mb-2"><a class="btn btn-primary" href="{{ path('admin_dashboard')}}">Retour au dashboard</a></div>
