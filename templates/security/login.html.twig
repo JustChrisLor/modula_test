@@ -11,7 +11,7 @@
                 {{ error.messageKey | trans(error.messageData, 'security') }}
             </div>
         {% endif %}
-
+        <h1 class="text-warning pt-3">Connexion</h1>
         <form action="{{ path('login') }}" method="post">
             <div class="form-group">
                 <label for="username">Nom d'utilisateur</label>
@@ -22,7 +22,7 @@
                 <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="_password" class="form-control">
             </div>
-            <button type="submit" class="btn btn-primary">Se connecter</button>
+            <button type="submit" class="btn btn-warning mt-3 mb-3">Se connecter</button>
         </form>
     </div>
 {% endblock %}

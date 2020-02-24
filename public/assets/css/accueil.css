@@ -1,0 +1,45 @@
+.header-img{
+    height: calc(100vh - 81px);
+    background-image: url("../img/header-brasdefer-redveil.jpg");
+    min-width: 100px;
+    min-height: 100px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.title{
+    position: absolute;
+    right:2rem;
+    top: 14rem;
+}
+
+.header-btn{margin-left: 75%;}
+
+.footer-title{padding-top: 2rem;}
+
+.wrapper {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+.list-style{list-style-type: none;}
+
+@media screen and (max-width: 767px){
+    .header-img{ height: calc(40vh - 81px);}
+    .title{
+        position: unset;
+        padding-top: 2rem;
+    }
+    .header-hgroup h1, .header-hgroup h2{
+        font-size: 1rem;
+        padding-right: 10px;
+    }
+    .header-btn{
+        font-size: 0.75rem !important;
+        margin-left: 60%;
+    }
+    .footer-title{margin-left: 13%;}
+}
+

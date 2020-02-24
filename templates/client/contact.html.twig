@@ -5,22 +5,20 @@
 {% endblock %}
 
 {% block main %}
+    <section class="pt-5 pb-5 mb-5">
+        <div class="container">
+            <h1 class="text-warning pb-3">Contact</h1>
+            {{ form_start(form, {'attr': {'id': 'form'}})}}
+            {{ form_widget((form)) }}
+            <div class="g-recaptcha mb-2" data-sitekey="6Lf7E9sUAAAAAMu-e5LoCFEv02q8WpXIBDXzOAMz"></div>
+            <button class="btn btn-primary">Envoyer</button>
+            {{ form_end(form) }}
 
-    <div class="container">
-        <h1>Contact</h1>
-        {{ form_start(form, {'attr': {'id': 'form'}}) }}
-        {{ form_rest((form)) }}
-        <div class="g-recaptcha mb-2" data-sitekey="6Lf7E9sUAAAAAMu-e5LoCFEv02q8WpXIBDXzOAMz"></div>
-        <button type="submit" class="btn btn-primary">Envoyer</button>
-        {{ form_end(form) }}
-    </div>
-
-    <div class="container mt-2" id="success"></div>
-    <div class="container mt-2" id="error"></div>
-
-
+            <div class="container mt-2" id="success"></div>
+            <div class="container mt-2" id="error"></div>
+        </div>
+    </section>
 {% endblock %}
-
 
 
 {% block javascripts %}
@@ -37,10 +35,14 @@
                     data: $('#form').serialize(),
                     async: true,
                     success: function () {
-                        $('#success').append('<div class="alert alert-success">Votre message a bien été envoyé')
+                        alert('Votre message a bien été envoyé');
+                        $('#success').append('<div class="alert alert-success">Votre message a bien été envoyé');
+                        $('#error').remove();
+
                     },
                     error: function () {
-                        $('#error').append('<div class="alert alert-danger">Une erreur est survenue: Vérifier le recaptcha ou votre connexion internet')
+                        $('#error').append('<div class="alert alert-danger">Une erreur est survenue: Vérifier le recaptcha ou votre connexion internet');
+                        $('#success').remove();
                     }
                 })
             });
