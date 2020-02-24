@@ -6,14 +6,11 @@
 
 {% block main %}
     <div class="row">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb40 text-center mt-4">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center mt-4 mb-2">
             <h1>Liste des Messages</h1>
-            {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('logout') }}">Se déconnecter</a>
-            {% endif %}
         </div>
     </div>
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center mb-2"><a class="btn btn-primary" href="{{ path('admin_dashboard')}}">Retour au dashboard</a></div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center mb-2"><a class="btn btn-warning" href="{{ path('admin_dashboard')}}">Retour au dashboard</a></div>
 
     <div class="content">
         <div class="container">
@@ -28,21 +25,12 @@
                     </thead>
                     <tbody>
                     {% for message in messages %}
-
                         <tr>
                             <td>{{ message.createdAt|date("m/d/Y H:i") }}</td>
                             <td>{{ message.text }}</td>
                             <td><a href="{{ path('admin_liste_message_show', { 'id': message.id }) }}"
-                                   class="btn btn-primary mb-2"><i class="fas fa-info-circle"></i>Voir</a></td>
+                                   class="btn btn-warning mb-2"><i class="fas fa-info-circle"></i>Voir</a></td>
                         </tr>
-
-
-
-
-                        {#                        <a href="{{ path('admin_message_edit', { 'id': message.id }) }}"#}
-                        {#                           class="btn btn-sm btn-primary mb-2"><i class="far fa-edit"></i>Editer</a>#}
-                        {#                        <a href="{{ path("admin_message_delete", {'id': message.id}) }}" class="btn btn-sm btn-danger mb-2"><i#}
-                        {#                                    class="fas fa-trash-alt"></i>Supprimer</a>#}
                     {% endfor %}
                     </tbody>
                 </table>
