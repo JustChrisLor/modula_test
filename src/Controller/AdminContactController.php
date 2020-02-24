@@ -19,7 +19,7 @@ class AdminContactController extends AbstractController
      */
     public function listeMessage(ContactRepository $contactRepository){
 
-        // La méthode findbyDate a été crée dans le repository afin de trier par ordre décroissant
+        // La méthode findbyDate a été crée dans le Contactrepository afin de trier par ordre décroissant
         $messages = $contactRepository->findByDate();
         return $this->render('admin/listeMessage.html.twig', [
             'messages' => $messages

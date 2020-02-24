@@ -8,27 +8,13 @@
 
     <div class="container">
         <h1>Contact</h1>
-        {{ form_start(form) }}
+        {{ form_start(form, {'attr': {'id': 'form'}}) }}
         <div class="g-recaptcha" data-sitekey="6Lf7E9sUAAAAAMu-e5LoCFEv02q8WpXIBDXzOAMz"></div>
-        {{ form_widget((form)) }}
-        <button class="btn btn-primary">Envoyer</button>
+        {{ form_rest((form)) }}
+        <button type="submit" class="btn btn-primary">Envoyer</button>
         {{ form_end(form) }}
     </div>
 
-    <div class="container mt-1">
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success">
-                {{ message }}
-            </div>
-        {% endfor %}
-    </div>
-    <div class="container mt-1">
-        {% for message in app.flashes('error') %}
-            <div class="alert alert-danger">
-                {{ message }}
-            </div>
-        {% endfor %}
-    </div>
 {% endblock %}
 
 
@@ -36,4 +22,26 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+        $(function()
+        {
+            $('#form').on("submit", function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: '{{ path('contact') }}',
+                    type: "POST",
+                    dataType: "json",
+                    data: $('#form').serialize(),
+                    async: true,
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    error: function (error)
+                    {
+                        console.log(error);
+                    }
+                })
+            });
+        });
+    </script>
 {% endblock %}
