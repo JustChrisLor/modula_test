@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
 
 class DefaultController extends AbstractController
 {
@@ -37,31 +36,34 @@ class DefaultController extends AbstractController
     /**
      * @Route ("/contact", name="contact")
      * @param Request $request
-     * @param SerializerInterface $serializer
      * @return Response
      */
-    public function Contact(Request $request, SerializerInterface $serializer)
+    public function Contact(Request $request)
     {
         $contact = New Contact();
-        // je récupère l'ip du user avec la méthode getClientIp
-        $ip = $request->getClientIp();
-        // j'encode cette ip avec la méthode anonymize de la classe IpUtils
-        $ipanonymize = IpUtils::anonymize($ip);
-        // je set l'ip de l'utilisateur
-        $contact->setIp($ipanonymize);
 
         $form = $this->createForm(ContactFormType::class, $contact);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid() && isset($_POST['g-recaptcha-response'])) {
+            $message = '';
+            // je récupère l'ip du user avec la méthode getClientIp
+            $ip = $request->getClientIp();
+            // j'encode cette ip avec la méthode anonymize de la classe IpUtils
+            $ipanonymize = IpUtils::anonymize($ip);
+            // je set l'ip de l'utilisateur
+            $contact->setIp($ipanonymize);
             //j'utilise la function grecpatcha que j'ai crée pour décodé la requête POST
-            if ($this->grecaptcha()->success == true) {
+            if ($this->grecaptcha()->success == true && $request->isXmlHttpRequest()) {
+                $data = $request->getContent();
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($contact);
                 $entityManager->flush();
+
+                return new JsonResponse($data);
             }
-            $data = $request->getContent();
-            return new JsonResponse($data);
+            return $this->redirectToRoute('contact');
+
         }
 
         return $this->render('client/contact.html.twig',

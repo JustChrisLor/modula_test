@@ -9,11 +9,15 @@
     <div class="container">
         <h1>Contact</h1>
         {{ form_start(form, {'attr': {'id': 'form'}}) }}
-        <div class="g-recaptcha" data-sitekey="6Lf7E9sUAAAAAMu-e5LoCFEv02q8WpXIBDXzOAMz"></div>
         {{ form_rest((form)) }}
+        <div class="g-recaptcha mb-2" data-sitekey="6Lf7E9sUAAAAAMu-e5LoCFEv02q8WpXIBDXzOAMz"></div>
         <button type="submit" class="btn btn-primary">Envoyer</button>
         {{ form_end(form) }}
     </div>
+
+    <div class="container mt-2" id="success"></div>
+    <div class="container mt-2" id="error"></div>
+
 
 {% endblock %}
 
@@ -23,8 +27,7 @@
     {{ parent() }}
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
-        $(function()
-        {
+        $(function () {
             $('#form').on("submit", function (e) {
                 e.preventDefault();
                 $.ajax({
@@ -33,12 +36,11 @@
                     dataType: "json",
                     data: $('#form').serialize(),
                     async: true,
-                    success: function (data) {
-                        console.log(data);
+                    success: function () {
+                        $('#success').append('<div class="alert alert-success">Votre message a bien été envoyé')
                     },
-                    error: function (error)
-                    {
-                        console.log(error);
+                    error: function () {
+                        $('#error').append('<div class="alert alert-danger">Une erreur est survenue: Vérifier le recaptcha ou votre connexion internet')
                     }
                 })
             });
